@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Header from "./Header";
 import ListingsContainer from "./ListingsContainer";
+import NewItem from "./NewItem";
 
 function App() {
 
@@ -18,13 +19,18 @@ function App() {
       method: "DELETE"
     })
     .then(r => r.json())
-    .then(setListings(listings.filter(listing => listing.id !== id)))
+    .then(setListings(listings.filter(listing => listing.id !== id)));
+  }
+
+  function handleNewListing(newListing) {
+    setListings([...listings, newListing]);
   }
 
   return (
     <div className="app">
       <Header onSearch={setSearch} />
       <ListingsContainer listings={listings} onDelete={handleDelete} search={search} />
+      <NewItem onNewListing={handleNewListing} />
     </div>
   );
 }
