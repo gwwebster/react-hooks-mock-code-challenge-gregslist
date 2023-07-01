@@ -5,8 +5,7 @@ import ListingsContainer from "./ListingsContainer";
 function App() {
 
   const [listings, setListings] = useState([]);
-  const [searchText, setSearchText] = useState("");
-
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     fetch("http://localhost:6001/listings")
@@ -22,14 +21,10 @@ function App() {
     .then(setListings(listings.filter(listing => listing.id !== id)))
   }
 
-  // function handleSearch(searchText) {
-  //   setListings(listings.filter(listing => listing.description.toLowerCase().includes(searchText)))
-  // }
-
   return (
     <div className="app">
-      <Header onSearch={setSearchText} searchText={searchText} />
-      <ListingsContainer listings={listings} onDelete={handleDelete} searchText={searchText} />
+      <Header onSearch={setSearch} />
+      <ListingsContainer listings={listings} onDelete={handleDelete} search={search} />
     </div>
   );
 }
